@@ -1,0 +1,29 @@
+version: '3'
+services:
+
+  postgres:
+    container_name: postgres
+    image: postgres
+    restart: always
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: $PG_USER
+      POSTGRES_PASSWORD: $PG_PASS
+      POSTGRES_DB: 'postgres'
+    ports:
+      - 5430:5432
+  app:
+    build: .
+    container_name: app
+    image: app
+    restart: always
+    environment:
+      PG_URL: 'postgres://${PG_USER}:${PG_PASS}@postgres:5432/postgres?sslmode=disable'
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+
+volumes:
+  pg-data:

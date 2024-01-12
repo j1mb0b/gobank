@@ -1,0 +1,10 @@
+app:
+  name: 'gobank'
+  version: '1.0.0'
+
+http:
+  port: '8080'
+
+postgres:
+  pg_url: postgres://postgres:j1mb0b@localhost:5432/postgres
+  pool_max: 2
